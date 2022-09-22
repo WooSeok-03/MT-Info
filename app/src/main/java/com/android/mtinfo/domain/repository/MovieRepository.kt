@@ -4,6 +4,6 @@ import com.android.mtinfo.data.model.movie.Movie
 
 interface MovieRepository {
     suspend fun getMovies(): List<Movie>?
-    suspend fun updateMovies(): List<Movie>?
-    suspend fun saveMovies()
+    suspend fun saveMovie(movie: Movie)
+    suspend fun deleteMovie(movie: Movie)
 }
