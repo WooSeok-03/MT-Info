@@ -4,9 +4,10 @@ import com.android.mtinfo.data.model.movie.Movie
 import com.google.gson.annotations.SerializedName
 
 data class MovieList(
-    val page: Int,
     @SerializedName("result")
-    val movies: List<Movie>,
+    val movies: List<Movie>
+
+//    val page: Int,
 //    val total_pages: Int,
 //    val total_results: Int
 )
