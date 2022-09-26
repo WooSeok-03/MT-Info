@@ -3,7 +3,7 @@ package com.android.mtinfo.data.model.tvshow
 import com.google.gson.annotations.SerializedName
 
 data class TvShowList(
-    @SerializedName("result")
+    @SerializedName("results")
     val tvShows: List<TvShow>
 
 //    val page: Int,
