@@ -18,7 +18,10 @@
         android:id="@+id/informationFragment"
         android:name="com.android.mtinfo.InformationFragment"
         android:label="fragment_information"
-        tools:layout="@layout/fragment_information" />
+        tools:layout="@layout/fragment_information" >
+        <argument android:name="selected_movie"
+            app:argType="com.android.mtinfo.data.model.movie.Movie" />
+    </fragment>
     <fragment
         android:id="@+id/tvShowFragment"
         android:name="com.android.mtinfo.TvShowFragment"

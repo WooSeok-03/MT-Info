@@ -1,6 +1,7 @@
 package com.android.mtinfo.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -19,7 +20,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 .load(posterURL)
                 .into(binding.ivPoster)
 
-            binding.root.setOnClickListener {
+            binding.cardView.setOnClickListener{
                 onItemClickListener?.let {
                     it(movie)
                 }
@@ -36,8 +37,13 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
             return oldItem == newItem
         }
     }
-
     val differ = AsyncListDiffer(this, callback)
+
+
+    private var onItemClickListener: ((Movie)->Unit) ?= null
+    fun setOnItemClickListener(listener: (Movie)->Unit) {
+            onItemClickListener = listener
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -51,9 +57,4 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     override fun getItemCount(): Int = differ.currentList.size
-
-    private var onItemClickListener: ((Movie)->Unit) ?= null
-    fun setOnItemClickListener(listener: (Movie)->Unit) {
-        onItemClickListener = listener
-    }
 }

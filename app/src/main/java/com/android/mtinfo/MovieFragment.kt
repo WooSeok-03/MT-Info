@@ -1,6 +1,7 @@
 package com.android.mtinfo
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -32,6 +33,12 @@ class MovieFragment : Fragment() {
         fragmentMovieBinding = FragmentMovieBinding.bind(view)
         movieViewModel = (activity as MainActivity).movieViewModel
         movieAdapter = (activity as MainActivity).movieAdapter
+        movieAdapter.setOnItemClickListener {
+            findNavController().navigate(
+                R.id.action_movieFragment_to_informationFragment,
+                Bundle().apply { putSerializable("selected_movie", it) }
+            )
+        }
 
         initRecyclerView()
         viewMovieList()
