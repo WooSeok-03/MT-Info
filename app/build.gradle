@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 // Use local.properties
@@ -25,6 +26,7 @@ android {
         // Api Key & Base Url
         buildConfigField "String", "API_KEY", properties['TMDB_API_KEY']
         buildConfigField "String", "BASE_URL", properties['TMDB_BASE_URL']
+        buildConfigField "String", "POSTER_URL", properties['TMDB_POSTER_URL']
     }
 
     buildTypes {
