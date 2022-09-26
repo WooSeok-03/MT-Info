@@ -4,7 +4,7 @@ import android.util.Log
 import com.android.mtinfo.data.model.movie.Movie
 import com.android.mtinfo.data.repository.movie.datasource.MovieRemoteDataSource
 import com.android.mtinfo.domain.repository.MovieRepository
-import retrofit2.Response
+import java.lang.Exception
 
 class MovieRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource
@@ -14,23 +14,24 @@ class MovieRepositoryImpl(
     }
 
     override suspend fun saveMovie(movie: Movie) {
-        TODO("Not yet implemented")
     }
 
     override suspend fun deleteMovie(movie: Movie) {
-        TODO("Not yet implemented")
     }
 
-    suspend fun getMovieFromAPI(): List<Movie>{
+    suspend fun getMovieFromAPI(): List<Movie> {
         lateinit var movieList: List<Movie>
         try {
             val response = movieRemoteDataSource.getMovies()
             val body = response.body()
-            if(body != null) movieList = body.movies
-        } catch (e: Exception) {
-            Log.i("MYTAG", e.message.toString())
+            if(body!=null){
+                Log.i("MYTAG", "res: $response")
+                Log.i("MYTAG", "body: $body")
+                movieList = body.movies
+            }
+        } catch (exception: Exception) {
+            Log.i("MyTag", exception.message.toString())
         }
-
         return movieList
     }
 }
