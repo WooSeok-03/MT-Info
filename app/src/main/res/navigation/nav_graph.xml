@@ -19,8 +19,17 @@
         android:name="com.android.mtinfo.InformationFragment"
         android:label="fragment_information"
         tools:layout="@layout/fragment_information" >
-        <argument android:name="selected_movie"
-            app:argType="com.android.mtinfo.data.model.movie.Movie" />
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument android:name="poster"
+            app:argType="string" />
+        <argument
+            android:name="overview"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/tvShowFragment"
