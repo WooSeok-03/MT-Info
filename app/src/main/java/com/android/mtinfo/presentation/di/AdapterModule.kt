@@ -1,6 +1,7 @@
 package com.android.mtinfo.presentation.di
 
 import com.android.mtinfo.presentation.adapter.MovieAdapter
+import com.android.mtinfo.presentation.adapter.TvShowAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,5 +15,11 @@ class AdapterModule {
     @Provides
     fun provideMovieAdapter(): MovieAdapter {
         return MovieAdapter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideTvShowAdapter(): TvShowAdapter {
+        return TvShowAdapter()
     }
 }

@@ -1,8 +1,10 @@
 package com.android.mtinfo.presentation.di
 
 import com.android.mtinfo.data.api.TMDBService
-import com.android.mtinfo.data.repository.movie.datasource.MovieRemoteDataSource
-import com.android.mtinfo.data.repository.movie.datasourceImpl.MovieRemoteDataSourceImpl
+import com.android.mtinfo.data.repository.datasource.MovieRemoteDataSource
+import com.android.mtinfo.data.repository.datasource.TvShowRemoteDataSource
+import com.android.mtinfo.data.repository.datasourceImpl.MovieRemoteDataSourceImpl
+import com.android.mtinfo.data.repository.datasourceImpl.TvShowRemoteDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,5 +20,13 @@ class RemoteDataModule {
         tmdbService: TMDBService
     ): MovieRemoteDataSource {
         return MovieRemoteDataSourceImpl(tmdbService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideTvShowRemoteDataSource(
+        tmdbService: TMDBService
+    ): TvShowRemoteDataSource {
+        return TvShowRemoteDataSourceImpl(tmdbService)
     }
 }
