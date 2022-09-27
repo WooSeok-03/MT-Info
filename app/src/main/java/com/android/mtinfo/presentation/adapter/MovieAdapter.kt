@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.android.mtinfo.BuildConfig
 import com.android.mtinfo.data.model.movie.Movie
 import com.android.mtinfo.databinding.ListItemBinding
 import com.bumptech.glide.Glide
@@ -15,7 +16,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         fun bind(movie: Movie) {
             binding.tvTitle.text = movie.title
 
-            val posterURL = "https://image.tmdb.org/t/p/w500" + movie.poster_path
+            val posterURL = BuildConfig.POSTER_URL + movie.poster_path
             Glide.with(binding.ivPoster.context)
                 .load(posterURL)
                 .into(binding.ivPoster)
@@ -40,7 +41,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     val differ = AsyncListDiffer(this, callback)
 
 
-    private var onItemClickListener: ((Movie)->Unit) ?= null
+    private lateinit var onItemClickListener: ((Movie)->Unit)
     fun setOnItemClickListener(listener: (Movie)->Unit) {
             onItemClickListener = listener
     }

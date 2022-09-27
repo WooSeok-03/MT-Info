@@ -1,8 +1,8 @@
-package com.android.mtinfo.data.repository.movie
+package com.android.mtinfo.data.repository
 
 import android.util.Log
 import com.android.mtinfo.data.model.movie.Movie
-import com.android.mtinfo.data.repository.movie.datasource.MovieRemoteDataSource
+import com.android.mtinfo.data.repository.datasource.MovieRemoteDataSource
 import com.android.mtinfo.domain.repository.MovieRepository
 import java.lang.Exception
 

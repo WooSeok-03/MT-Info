@@ -1,4 +1,4 @@
-package com.android.mtinfo.presentation.viewmodel
+package com.android.mtinfo.presentation.viewmodel.movie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

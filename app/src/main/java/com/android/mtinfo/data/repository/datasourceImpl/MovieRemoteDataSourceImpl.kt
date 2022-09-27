@@ -1,8 +1,8 @@
-package com.android.mtinfo.data.repository.movie.datasourceImpl
+package com.android.mtinfo.data.repository.datasourceImpl
 
 import com.android.mtinfo.data.api.TMDBService
 import com.android.mtinfo.data.model.movie.MovieList
-import com.android.mtinfo.data.repository.movie.datasource.MovieRemoteDataSource
+import com.android.mtinfo.data.repository.datasource.MovieRemoteDataSource
 import retrofit2.Response
 
 class MovieRemoteDataSourceImpl(

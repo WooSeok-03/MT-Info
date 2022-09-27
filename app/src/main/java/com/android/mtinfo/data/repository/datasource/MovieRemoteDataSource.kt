@@ -1,4 +1,4 @@
-package com.android.mtinfo.data.repository.movie.datasource
+package com.android.mtinfo.data.repository.datasource
 
 import com.android.mtinfo.data.model.movie.MovieList
 import retrofit2.Response
