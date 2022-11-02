@@ -1,4 +1,10 @@
 package com.android.mtinfo.domain.usecase.interest
 
-class GetSavedInterestUseCase {
+import com.android.mtinfo.data.model.Interest
+import com.android.mtinfo.domain.repository.InterestRepository
+
+class GetSavedInterestUseCase(private val interestRepository: InterestRepository) {
+    fun execute(): List<Interest> {
+        return interestRepository.getInterest()
+    }
 }

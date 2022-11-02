@@ -1,4 +1,10 @@
 package com.android.mtinfo.data.db
 
-class InterestDatabase {
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.android.mtinfo.data.model.Interest
+
+@Database(entities = [Interest::class], version = 1, exportSchema = false)
+abstract class InterestDatabase: RoomDatabase() {
+    abstract fun interestDao(): InterestDAO
 }

@@ -13,14 +13,6 @@ class TvShowRepositoryImpl(
         return getTvShowFromAPI()
     }
 
-    override suspend fun saveTvShow(tvShow: TvShow) {
-
-    }
-
-    override suspend fun deleteTvShow(tvShow: TvShow) {
-
-    }
-
     suspend fun getTvShowFromAPI(): List<TvShow> {
         lateinit var tvShowList: List<TvShow>
         try {

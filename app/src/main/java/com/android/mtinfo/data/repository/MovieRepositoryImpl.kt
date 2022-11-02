@@ -13,12 +13,6 @@ class MovieRepositoryImpl(
         return getMovieFromAPI()
     }
 
-    override suspend fun saveMovie(movie: Movie) {
-    }
-
-    override suspend fun deleteMovie(movie: Movie) {
-    }
-
     suspend fun getMovieFromAPI(): List<Movie> {
         lateinit var movieList: List<Movie>
         try {
