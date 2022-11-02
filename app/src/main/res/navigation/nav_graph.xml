@@ -9,44 +9,15 @@
         android:id="@+id/movieFragment"
         android:name="com.android.mtinfo.MovieFragment"
         android:label="fragment_movie"
-        tools:layout="@layout/fragment_movie" >
-        <action
-            android:id="@+id/action_movieFragment_to_informationFragment"
-            app:destination="@id/informationFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/informationFragment"
-        android:name="com.android.mtinfo.InformationFragment"
-        android:label="fragment_information"
-        tools:layout="@layout/fragment_information" >
-        <argument
-            android:name="key"
-            app:argType="string" />
-        <argument
-            android:name="title"
-            app:argType="string" />
-        <argument android:name="poster"
-            app:argType="string" />
-        <argument
-            android:name="overview"
-            app:argType="string" />
-    </fragment>
+        tools:layout="@layout/fragment_movie" />
     <fragment
         android:id="@+id/tvShowFragment"
         android:name="com.android.mtinfo.TvShowFragment"
         android:label="fragment_tv_show"
-        tools:layout="@layout/fragment_tv_show" >
-        <action
-            android:id="@+id/action_tvShowFragment_to_informationFragment"
-            app:destination="@id/informationFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_tv_show" />
     <fragment
         android:id="@+id/interestFragment"
         android:name="com.android.mtinfo.InterestFragment"
         android:label="fragment_interest"
-        tools:layout="@layout/fragment_interest" >
-        <action
-            android:id="@+id/action_interestFragment_to_informationFragment"
-            app:destination="@id/informationFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_interest" />
 </navigation>
