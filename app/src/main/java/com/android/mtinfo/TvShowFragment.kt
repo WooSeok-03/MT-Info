@@ -1,10 +1,13 @@
 package com.android.mtinfo
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -31,17 +34,16 @@ class TvShowFragment : Fragment() {
         binding = FragmentTvShowBinding.bind(view)
         tvShowViewModel = (activity as MainActivity).tvShowViewModel
         tvShowAdapter = (activity as MainActivity).tvShowAdapter
+
         tvShowAdapter.setOnClickListener {
-            val bundle = bundleOf(
-                "key" to "tvshow",
-                "title" to it.name,
-                "poster" to it.poster_path,
-                "overview" to it.overview
-            )
-            findNavController().navigate(
-                R.id.action_tvShowFragment_to_informationFragment,
-                bundle
-            )
+            val intent = Intent(context, InformationActivity::class.java)
+            intent.apply {
+                this.putExtra("category", "tvshow")
+                this.putExtra("title", it.name)
+                this.putExtra("poster", it.poster_path)
+                this.putExtra("overview", it.overview)
+            }
+            (activity as MainActivity).startActivity(intent)
         }
 
         initRecyclerView()
@@ -56,9 +58,17 @@ class TvShowFragment : Fragment() {
     }
 
     private fun showTvShowList() {
+        binding.progressBar.visibility = View.VISIBLE
+
         val responseLiveData = tvShowViewModel.getTvShow()
         responseLiveData.observe(viewLifecycleOwner) {
-            tvShowAdapter.differ.submitList(it?.toList())
+            if (it != null) {
+                tvShowAdapter.differ.submitList(it.toList())
+                binding.progressBar.visibility = View.GONE
+            } else {
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(context, "No data available", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }

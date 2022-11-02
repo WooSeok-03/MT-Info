@@ -1,10 +1,12 @@
 package com.android.mtinfo
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,17 +31,15 @@ class MovieFragment : Fragment() {
         binding = FragmentMovieBinding.bind(view)
         movieViewModel = (activity as MainActivity).movieViewModel
         movieAdapter = (activity as MainActivity).movieAdapter
+
         movieAdapter.setOnItemClickListener {
-            val bundle = bundleOf(
-                "key" to "movie",
-                "title" to it.title,
-                "poster" to it.poster_path,
-                "overview" to it.overview
-            )
-            findNavController().navigate(
-                R.id.action_movieFragment_to_informationFragment,
-                bundle
-            )
+            val intent = Intent(context, InformationActivity::class.java)
+            intent.apply {
+                this.putExtra("title", it.title)
+                this.putExtra("poster", it.poster_path)
+                this.putExtra("overview", it.overview)
+            }
+            (activity as MainActivity).startActivity(intent)
         }
 
         initRecyclerView()
@@ -54,9 +54,17 @@ class MovieFragment : Fragment() {
     }
 
     private fun viewMovieList() {
+        binding.progressBar.visibility = View.VISIBLE
+
         val responseLiveData = movieViewModel.getMovies()
         responseLiveData.observe(viewLifecycleOwner) {
-            movieAdapter.differ.submitList(it?.toList())
+            if (it != null) {
+                movieAdapter.differ.submitList(it.toList())
+                binding.progressBar.visibility = View.GONE
+            } else {
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(context, "No data available", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }
