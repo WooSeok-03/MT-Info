@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide
 class TvShowAdapter: RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     inner class TvShowViewHolder(private val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(tvShow: TvShow) {
-            binding.tvTitle.text = tvShow.name
 
             val posterURL = BuildConfig.POSTER_URL + tvShow.poster_path
             Glide.with(binding.ivPoster)

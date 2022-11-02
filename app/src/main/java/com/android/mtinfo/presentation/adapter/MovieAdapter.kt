@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     inner class MovieViewHolder(val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
-            binding.tvTitle.text = movie.title
 
             val posterURL = BuildConfig.POSTER_URL + movie.poster_path
             Glide.with(binding.ivPoster.context)
