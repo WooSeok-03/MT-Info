@@ -1,11 +1,9 @@
 package com.android.mtinfo.presentation.viewmodel.interest
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.android.mtinfo.data.model.Interest
+import com.android.mtinfo.data.model.Information
 import com.android.mtinfo.domain.usecase.interest.DeleteInterestUseCase
 import com.android.mtinfo.domain.usecase.interest.GetSavedInterestUseCase
 import com.android.mtinfo.domain.usecase.interest.SaveInterestUseCase
@@ -17,7 +15,7 @@ class InterestViewModel(
     private val deleteInterestUseCase: DeleteInterestUseCase
 ): ViewModel() {
 
-    fun saveInterest(interest: Interest) = viewModelScope.launch {
+    fun saveInterest(interest: Information) = viewModelScope.launch {
         savedInterestUseCase.execute(interest)
     }
 
@@ -26,7 +24,7 @@ class InterestViewModel(
         emit(interestList)
     }
 
-    fun deleteInterest(interest: Interest) = viewModelScope.launch {
+    fun deleteInterest(interest: Information) = viewModelScope.launch {
         deleteInterestUseCase.execute(interest)
     }
 }

@@ -1,9 +1,9 @@
 package com.android.mtinfo.domain.repository
 
-import com.android.mtinfo.data.model.Interest
+import com.android.mtinfo.data.model.Information
 
 interface InterestRepository {
-    fun getInterest(): List<Interest>
-    suspend fun saveInterest(interest: Interest)
-    suspend fun deleteInterest(interest: Interest)
+    fun getInterest(): List<Information>
+    suspend fun saveInterest(interest: Information)
+    suspend fun deleteInterest(interest: Information)
 }
