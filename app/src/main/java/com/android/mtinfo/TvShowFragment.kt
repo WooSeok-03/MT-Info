@@ -1,6 +1,5 @@
 package com.android.mtinfo
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,11 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.android.mtinfo.data.model.Information
 import com.android.mtinfo.databinding.FragmentTvShowBinding
 import com.android.mtinfo.presentation.adapter.TvShowAdapter
 import com.android.mtinfo.presentation.viewmodel.tvshow.TvShowViewModel
@@ -37,12 +33,14 @@ class TvShowFragment : Fragment() {
 
         tvShowAdapter.setOnClickListener {
             val intent = Intent(context, InformationActivity::class.java)
-            intent.apply {
-                this.putExtra("category", "tvshow")
-                this.putExtra("title", it.name)
-                this.putExtra("poster", it.poster_path)
-                this.putExtra("overview", it.overview)
-            }
+            val information = Information(
+                id = 1,
+                title = it.name,
+                overview = it.overview,
+                poster_path = it.poster_path
+            )
+            intent.putExtra("info", information)
+
             (activity as MainActivity).startActivity(intent)
         }
 

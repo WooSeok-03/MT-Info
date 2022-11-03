@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.mtinfo.data.model.Information
 import com.android.mtinfo.databinding.FragmentMovieBinding
 import com.android.mtinfo.presentation.adapter.MovieAdapter
 import com.android.mtinfo.presentation.viewmodel.movie.MovieViewModel
@@ -34,11 +33,14 @@ class MovieFragment : Fragment() {
 
         movieAdapter.setOnItemClickListener {
             val intent = Intent(context, InformationActivity::class.java)
-            intent.apply {
-                this.putExtra("title", it.title)
-                this.putExtra("poster", it.poster_path)
-                this.putExtra("overview", it.overview)
-            }
+            val information = Information(
+                id = 1,
+                title = it.title,
+                overview = it.overview,
+                poster_path = it.poster_path
+            )
+            intent.putExtra("info", information)
+
             (activity as MainActivity).startActivity(intent)
         }
 

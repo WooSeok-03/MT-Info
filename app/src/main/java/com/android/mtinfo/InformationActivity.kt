@@ -1,14 +1,13 @@
 package com.android.mtinfo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
-import com.android.mtinfo.data.model.Interest
+import android.util.Log
+import android.widget.Toast
+import com.android.mtinfo.data.model.Information
 import com.android.mtinfo.databinding.ActivityInformationBinding
-import com.android.mtinfo.presentation.viewmodel.interest.InterestViewModel
-import com.android.mtinfo.presentation.viewmodel.interest.InterestViewModelFactory
 import com.bumptech.glide.Glide
-import javax.inject.Inject
 
 class InformationActivity : AppCompatActivity() {
     lateinit var binding: ActivityInformationBinding
@@ -19,17 +18,18 @@ class InformationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        val category = intent.getStringExtra("category")
-        val title = intent.getStringExtra("title")
-        val poster = intent.getStringExtra("poster")
-        val overview = intent.getStringExtra("overview")
+        val information = intent.getSerializableExtra("info") as Information
 
-        binding.tvTitle.text = title
-        binding.tvDescription.text = overview
-        val posterURL = BuildConfig.POSTER_URL + poster
+        binding.tvTitle.text = information.title
+        binding.tvDescription.text = information.overview
+        val posterURL = BuildConfig.POSTER_URL + information.poster_path
         Glide.with(binding.ivPoster.context)
             .load(posterURL)
             .into(binding.ivPoster)
+
+        binding.btLike.setOnClickListener {
+            Toast.makeText(this, "Add to Interest!", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

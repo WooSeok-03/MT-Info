@@ -1,11 +1,14 @@
 package com.android.mtinfo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.mtinfo.data.model.Information
 import com.android.mtinfo.databinding.FragmentInterestBinding
 import com.android.mtinfo.presentation.adapter.InterestAdapter
 import com.android.mtinfo.presentation.viewmodel.interest.InterestViewModel
@@ -28,7 +31,8 @@ class InterestFragment : Fragment() {
         interestViewModel = (activity as MainActivity).interestViewModel
         interestAdapter = (activity as MainActivity).interestAdapter
 
-
+        initRecyclerView()
+        viewInterestList()
     }
 
     private fun initRecyclerView() {
