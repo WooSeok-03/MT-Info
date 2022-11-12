@@ -6,8 +6,6 @@ import com.android.mtinfo.domain.usecase.interest.GetSavedInterestUseCase
 import com.android.mtinfo.domain.usecase.interest.SaveInterestUseCase
 import com.android.mtinfo.domain.usecase.movie.GetMoviesUseCase
 import com.android.mtinfo.domain.usecase.tvshow.GetTvShowsUseCase
-import com.android.mtinfo.presentation.viewmodel.MainActivityViewModel
-import com.android.mtinfo.presentation.viewmodel.MainActivityViewModelFactory
 import com.android.mtinfo.presentation.viewmodel.information.InformationViewModelFactory
 import com.android.mtinfo.presentation.viewmodel.interest.InterestViewModelFactory
 import com.android.mtinfo.presentation.viewmodel.movie.MovieViewModelFactory
@@ -45,18 +43,6 @@ class FactoryModule {
     ): InterestViewModelFactory {
         return InterestViewModelFactory(
             getSavedInterestUseCase
-        )
-    }
-
-    @Singleton
-    @Provides
-    fun provideMainViewModelFactory(
-        saveInterestUseCase: SaveInterestUseCase,
-        deleteInterestUseCase: DeleteInterestUseCase
-    ): MainActivityViewModelFactory {
-        return MainActivityViewModelFactory(
-            saveInterestUseCase,
-            deleteInterestUseCase
         )
     }
 
