@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
@@ -65,14 +66,22 @@ class InterestFragment : Fragment() {
 
         binding.rvInterest.apply {
             adapter = interestAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
     private fun viewInterestList() {
+        binding.progressBar.visibility = View.VISIBLE
+
         val responseLiveData = viewModel.getSavedInterest()
         responseLiveData.observe(viewLifecycleOwner) {
-            interestAdapter.differ.submitList(it?.toList())
+            if(!it.isNullOrEmpty()) {
+                interestAdapter.differ.submitList(it?.toList())
+                binding.progressBar.visibility = View.GONE
+            } else {
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(context, "No data available", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }
