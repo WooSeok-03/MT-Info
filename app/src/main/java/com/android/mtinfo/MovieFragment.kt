@@ -2,14 +2,18 @@ package com.android.mtinfo
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.mtinfo.data.model.Information
 import com.android.mtinfo.databinding.FragmentMovieBinding
+import com.android.mtinfo.domain.InformationCategory
 import com.android.mtinfo.presentation.adapter.MovieAdapter
 import com.android.mtinfo.presentation.viewmodel.movie.MovieViewModel
 
@@ -31,28 +35,29 @@ class MovieFragment : Fragment() {
         movieViewModel = (activity as MainActivity).movieViewModel
         movieAdapter = (activity as MainActivity).movieAdapter
 
-        movieAdapter.setOnItemClickListener {
-            val intent = Intent(context, InformationActivity::class.java)
-            val information = Information(
-                id = 1,
-                title = it.title,
-                overview = it.overview,
-                poster_path = it.poster_path
-            )
-            intent.putExtra("info", information)
-
-            (activity as MainActivity).startActivity(intent)
-        }
-
         initRecyclerView()
         viewMovieList()
     }
 
     private fun initRecyclerView() {
+        movieAdapter.setOnItemClickListener {
+            val intent = Intent(context, InformationActivity::class.java)
+            val information = Information(
+                id = it.id,
+                title = it.title,
+                overview = it.overview,
+                poster_path = it.poster_path,
+                category = InformationCategory.MOVIE
+            )
+            intent.putExtra("info", information)
+
+            requireActivity().startActivity(intent)
+        }
+
         binding.rvMovie.apply {
             adapter = movieAdapter
-            layoutManager = LinearLayoutManager(activity)
-        }
+            layoutManager = LinearLayoutManager(requireContext())
+         }
     }
 
     private fun viewMovieList() {

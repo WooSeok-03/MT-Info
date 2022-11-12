@@ -21,9 +21,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 .into(binding.ivPoster)
 
             binding.cardView.setOnClickListener{
-                onItemClickListener?.let {
-                    it(movie)
-                }
+                onItemClickListener?.invoke(movie)
             }
         }
     }
@@ -40,7 +38,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     val differ = AsyncListDiffer(this, callback)
 
 
-    private lateinit var onItemClickListener: ((Movie)->Unit)
+    private var onItemClickListener: ((Movie)->Unit) ?= null
     fun setOnItemClickListener(listener: (Movie)->Unit) {
             onItemClickListener = listener
     }
