@@ -10,11 +10,14 @@ import com.android.mtinfo.data.model.Information
 @Dao
 interface InterestDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(interest: Information)
+    suspend fun insert(interest: Information): Long
 
     @Query("SELECT * FROM interest_table")
-    fun getAllInterest(): List<Information>
+    suspend fun getAllInterest(): List<Information>
 
     @Delete
-    fun delete(interest: Information)
+    suspend fun delete(interest: Information): Int
+
+    @Query("SELECT * from interest_table where id = :id")
+    suspend fun getInterest(id: Int): Information?
 }
