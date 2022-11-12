@@ -12,7 +12,7 @@ interface InterestDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(interest: Information): Long
 
-    @Query("SELECT * FROM interest_table")
+    @Query("SELECT * FROM interest_table ORDER BY title")
     suspend fun getAllInterest(): List<Information>
 
     @Delete
