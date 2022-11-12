@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">MTInfo</string>
-    <string name="like">♥ ️Like</string>
-    <string name="liked">♥ ️Liked</string>
+    <string name="like">🤍</string>
+    <string name="liked">♥️</string>
 </resources>
