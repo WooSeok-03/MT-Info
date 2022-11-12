@@ -21,9 +21,7 @@ class TvShowAdapter: RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
                 .into(binding.ivPoster)
 
             binding.cardView.setOnClickListener{
-                onClickListener?.let {
-                    it(tvShow)
-                }
+                onClickListener?.invoke(tvShow)
             }
         }
     }
@@ -41,7 +39,7 @@ class TvShowAdapter: RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     val differ = AsyncListDiffer(this, callback)
 
 
-    private lateinit var onClickListener: ((TvShow)->Unit)
+    private var onClickListener: ((TvShow)->Unit) ?= null
     fun setOnClickListener(listener: (TvShow)->Unit) {
         onClickListener = listener
     }

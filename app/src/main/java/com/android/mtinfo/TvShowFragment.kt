@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.mtinfo.data.model.Information
 import com.android.mtinfo.databinding.FragmentTvShowBinding
+import com.android.mtinfo.domain.InformationCategory
 import com.android.mtinfo.presentation.adapter.TvShowAdapter
 import com.android.mtinfo.presentation.viewmodel.tvshow.TvShowViewModel
 
@@ -31,24 +33,25 @@ class TvShowFragment : Fragment() {
         tvShowViewModel = (activity as MainActivity).tvShowViewModel
         tvShowAdapter = (activity as MainActivity).tvShowAdapter
 
-        tvShowAdapter.setOnClickListener {
-            val intent = Intent(context, InformationActivity::class.java)
-            val information = Information(
-                id = 1,
-                title = it.name,
-                overview = it.overview,
-                poster_path = it.poster_path
-            )
-            intent.putExtra("info", information)
-
-            (activity as MainActivity).startActivity(intent)
-        }
-
         initRecyclerView()
         showTvShowList()
     }
 
     private fun initRecyclerView() {
+        tvShowAdapter.setOnClickListener {
+            val intent = Intent(context, InformationActivity::class.java)
+            val information = Information(
+                id = it.id,
+                title = it.name,
+                overview = it.overview,
+                poster_path = it.poster_path,
+                category = InformationCategory.TV_SHOW
+            )
+            intent.putExtra("info", information)
+
+            requireActivity().startActivity(intent)
+        }
+
         binding.rvTvshow.apply {
             adapter = tvShowAdapter
             layoutManager = LinearLayoutManager(activity)
