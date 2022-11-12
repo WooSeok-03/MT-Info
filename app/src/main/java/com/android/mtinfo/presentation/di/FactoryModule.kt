@@ -6,6 +6,9 @@ import com.android.mtinfo.domain.usecase.interest.GetSavedInterestUseCase
 import com.android.mtinfo.domain.usecase.interest.SaveInterestUseCase
 import com.android.mtinfo.domain.usecase.movie.GetMoviesUseCase
 import com.android.mtinfo.domain.usecase.tvshow.GetTvShowsUseCase
+import com.android.mtinfo.presentation.viewmodel.MainActivityViewModel
+import com.android.mtinfo.presentation.viewmodel.MainActivityViewModelFactory
+import com.android.mtinfo.presentation.viewmodel.information.InformationViewModelFactory
 import com.android.mtinfo.presentation.viewmodel.interest.InterestViewModelFactory
 import com.android.mtinfo.presentation.viewmodel.movie.MovieViewModelFactory
 import com.android.mtinfo.presentation.viewmodel.tvshow.TvShowViewModel
@@ -38,14 +41,34 @@ class FactoryModule {
     @Singleton
     @Provides
     fun provideInterestViewModelFactory(
-        getSavedInterestUseCase: GetSavedInterestUseCase,
-        saveInterestUseCase: SaveInterestUseCase,
-        deleteInterestUseCase: DeleteInterestUseCase
+        getSavedInterestUseCase: GetSavedInterestUseCase
     ): InterestViewModelFactory {
         return InterestViewModelFactory(
-            getSavedInterestUseCase,
+            getSavedInterestUseCase
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideMainViewModelFactory(
+        saveInterestUseCase: SaveInterestUseCase,
+        deleteInterestUseCase: DeleteInterestUseCase
+    ): MainActivityViewModelFactory {
+        return MainActivityViewModelFactory(
             saveInterestUseCase,
             deleteInterestUseCase
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideInformationViewModelFactory(
+        getSavedInterestUseCase: GetSavedInterestUseCase,
+        saveInterestUseCase: SaveInterestUseCase
+    ): InformationViewModelFactory {
+        return InformationViewModelFactory(
+            getSavedInterestUseCase,
+            saveInterestUseCase
         )
     }
 }
