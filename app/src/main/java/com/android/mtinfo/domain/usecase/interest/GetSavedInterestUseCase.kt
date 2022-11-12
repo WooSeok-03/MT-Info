@@ -4,7 +4,11 @@ import com.android.mtinfo.data.model.Information
 import com.android.mtinfo.domain.repository.InterestRepository
 
 class GetSavedInterestUseCase(private val interestRepository: InterestRepository) {
-    fun execute(): List<Information> {
+    suspend fun execute(): List<Information> {
         return interestRepository.getInterest()
+    }
+
+    suspend fun execute(id: Int): Information? {
+        return interestRepository.getInterestById(id)
     }
 }

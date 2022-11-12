@@ -20,7 +20,7 @@ class InterestAdapter: RecyclerView.Adapter<InterestAdapter.InterestViewHolder>(
                 .into(binding.ivPoster)
 
             binding.cardView.setOnClickListener{
-                onItemClickListener(interest)
+                onItemClickListener?.invoke(interest)
             }
         }
     }
@@ -37,7 +37,7 @@ class InterestAdapter: RecyclerView.Adapter<InterestAdapter.InterestViewHolder>(
     val differ = AsyncListDiffer(this, callback)
 
 
-    private lateinit var onItemClickListener: ((Information)->Unit)
+    private var onItemClickListener: ((Information)->Unit) ?= null
     fun setOnItemClickListener(listener: (Information)->Unit) {
         onItemClickListener = listener
     }

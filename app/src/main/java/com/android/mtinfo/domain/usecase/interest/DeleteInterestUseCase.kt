@@ -4,7 +4,7 @@ import com.android.mtinfo.data.model.Information
 import com.android.mtinfo.domain.repository.InterestRepository
 
 class DeleteInterestUseCase(private val interestRepository: InterestRepository) {
-    suspend fun execute(interest: Information) {
-        interestRepository.deleteInterest(interest)
+    suspend fun execute(interest: Information): Int {
+        return interestRepository.deleteInterest(interest)
     }
 }
