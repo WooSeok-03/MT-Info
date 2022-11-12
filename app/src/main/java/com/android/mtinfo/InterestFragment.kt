@@ -12,17 +12,25 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.mtinfo.data.model.Information
 import com.android.mtinfo.databinding.FragmentInterestBinding
 import com.android.mtinfo.presentation.adapter.InterestAdapter
 import com.android.mtinfo.presentation.viewmodel.interest.InterestViewModel
+import com.android.mtinfo.presentation.viewmodel.interest.InterestViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class InterestFragment : Fragment() {
-    private lateinit var binding: FragmentInterestBinding
+    @Inject
+    lateinit var factory: InterestViewModelFactory
+    lateinit var viewModel: InterestViewModel
     lateinit var interestAdapter: InterestAdapter
-    lateinit var interestViewModel: InterestViewModel
+    private lateinit var binding: FragmentInterestBinding
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -39,14 +47,15 @@ class InterestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentInterestBinding.bind(view)
-        interestViewModel = (activity as MainActivity).interestViewModel
-        interestAdapter = (activity as MainActivity).interestAdapter
+        viewModel = ViewModelProvider(this, factory).get(InterestViewModel::class.java)
 
         initRecyclerView()
         viewInterestList()
     }
 
     private fun initRecyclerView() {
+        interestAdapter = InterestAdapter()
+
         interestAdapter.setOnItemClickListener {
             val intent = Intent(requireContext(), InformationActivity::class.java).apply {
                 putExtra("info", it)
@@ -61,7 +70,7 @@ class InterestFragment : Fragment() {
     }
 
     private fun viewInterestList() {
-        val responseLiveData = interestViewModel.getSavedInterest()
+        val responseLiveData = viewModel.getSavedInterest()
         responseLiveData.observe(viewLifecycleOwner) {
             interestAdapter.differ.submitList(it?.toList())
         }

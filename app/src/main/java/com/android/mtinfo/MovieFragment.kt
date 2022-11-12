@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.mtinfo.data.model.Information
@@ -16,10 +17,16 @@ import com.android.mtinfo.databinding.FragmentMovieBinding
 import com.android.mtinfo.domain.InformationCategory
 import com.android.mtinfo.presentation.adapter.MovieAdapter
 import com.android.mtinfo.presentation.viewmodel.movie.MovieViewModel
+import com.android.mtinfo.presentation.viewmodel.movie.MovieViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MovieFragment : Fragment() {
-    private lateinit var movieViewModel: MovieViewModel
-    private lateinit var movieAdapter: MovieAdapter
+    @Inject
+    lateinit var factory: MovieViewModelFactory
+    lateinit var viewModel: MovieViewModel
+    lateinit var movieAdapter: MovieAdapter
     private lateinit var binding: FragmentMovieBinding
 
     override fun onCreateView(
@@ -32,14 +39,15 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMovieBinding.bind(view)
-        movieViewModel = (activity as MainActivity).movieViewModel
-        movieAdapter = (activity as MainActivity).movieAdapter
+        viewModel = ViewModelProvider(this, factory).get(MovieViewModel::class.java)
 
         initRecyclerView()
         viewMovieList()
     }
 
     private fun initRecyclerView() {
+        movieAdapter = MovieAdapter()
+
         movieAdapter.setOnItemClickListener {
             val intent = Intent(context, InformationActivity::class.java)
             val information = Information(
@@ -63,7 +71,7 @@ class MovieFragment : Fragment() {
     private fun viewMovieList() {
         binding.progressBar.visibility = View.VISIBLE
 
-        val responseLiveData = movieViewModel.getMovies()
+        val responseLiveData = viewModel.getMovies()
         responseLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 movieAdapter.differ.submitList(it.toList())

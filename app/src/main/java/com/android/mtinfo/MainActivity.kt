@@ -29,27 +29,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    // Movie
-    @Inject
-    lateinit var movieFactory: MovieViewModelFactory
-    @Inject
-    lateinit var movieAdapter: MovieAdapter
-    lateinit var movieViewModel: MovieViewModel
-
-    // TvShow
-    @Inject
-    lateinit var tvShowFactory: TvShowViewModelFactory
-    @Inject
-    lateinit var tvShowAdapter: TvShowAdapter
-    lateinit var tvShowViewModel: TvShowViewModel
-
-    // Interest
-    @Inject
-    lateinit var interestFactory: InterestViewModelFactory
-    @Inject
-    lateinit var interestAdapter: InterestAdapter
-    lateinit var interestViewModel: InterestViewModel
-
     @Inject
     lateinit var mainFactory: MainActivityViewModelFactory
     lateinit var mainActivityViewModel: MainActivityViewModel
@@ -63,10 +42,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setBottomNavigation()
-
-        movieViewModel = ViewModelProvider(this, movieFactory).get(MovieViewModel::class.java)
-        tvShowViewModel = ViewModelProvider(this, tvShowFactory).get(TvShowViewModel::class.java)
-        interestViewModel = ViewModelProvider(this, interestFactory).get(InterestViewModel::class.java)
 
         mainActivityViewModel = ViewModelProvider(this, mainFactory).get(MainActivityViewModel::class.java)
     }

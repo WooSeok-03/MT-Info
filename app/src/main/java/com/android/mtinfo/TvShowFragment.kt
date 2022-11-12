@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.mtinfo.data.model.Information
@@ -14,11 +15,17 @@ import com.android.mtinfo.databinding.FragmentTvShowBinding
 import com.android.mtinfo.domain.InformationCategory
 import com.android.mtinfo.presentation.adapter.TvShowAdapter
 import com.android.mtinfo.presentation.viewmodel.tvshow.TvShowViewModel
+import com.android.mtinfo.presentation.viewmodel.tvshow.TvShowViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class TvShowFragment : Fragment() {
-    lateinit var tvShowViewModel: TvShowViewModel
+    @Inject
+    lateinit var factory: TvShowViewModelFactory
+    lateinit var viewModel: TvShowViewModel
     lateinit var tvShowAdapter: TvShowAdapter
-    lateinit var binding: FragmentTvShowBinding
+    private lateinit var binding: FragmentTvShowBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,14 +37,15 @@ class TvShowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTvShowBinding.bind(view)
-        tvShowViewModel = (activity as MainActivity).tvShowViewModel
-        tvShowAdapter = (activity as MainActivity).tvShowAdapter
+        viewModel = ViewModelProvider(this, factory).get(TvShowViewModel::class.java)
 
         initRecyclerView()
         showTvShowList()
     }
 
     private fun initRecyclerView() {
+        tvShowAdapter = TvShowAdapter()
+
         tvShowAdapter.setOnClickListener {
             val intent = Intent(context, InformationActivity::class.java)
             val information = Information(
@@ -61,7 +69,7 @@ class TvShowFragment : Fragment() {
     private fun showTvShowList() {
         binding.progressBar.visibility = View.VISIBLE
 
-        val responseLiveData = tvShowViewModel.getTvShow()
+        val responseLiveData = viewModel.getTvShow()
         responseLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 tvShowAdapter.differ.submitList(it.toList())
