@@ -73,7 +73,7 @@ class MovieFragment : Fragment() {
 
         val responseLiveData = viewModel.getMovies()
         responseLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
+            if (!it.isNullOrEmpty()) {
                 movieAdapter.differ.submitList(it.toList())
                 binding.progressBar.visibility = View.GONE
             } else {

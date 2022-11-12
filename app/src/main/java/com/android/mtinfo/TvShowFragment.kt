@@ -40,7 +40,7 @@ class TvShowFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(TvShowViewModel::class.java)
 
         initRecyclerView()
-        showTvShowList()
+        viewTvShowList()
     }
 
     private fun initRecyclerView() {
@@ -62,16 +62,16 @@ class TvShowFragment : Fragment() {
 
         binding.rvTvshow.apply {
             adapter = tvShowAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
-    private fun showTvShowList() {
+    private fun viewTvShowList() {
         binding.progressBar.visibility = View.VISIBLE
 
         val responseLiveData = viewModel.getTvShow()
         responseLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
+            if (!it.isNullOrEmpty()) {
                 tvShowAdapter.differ.submitList(it.toList())
                 binding.progressBar.visibility = View.GONE
             } else {
