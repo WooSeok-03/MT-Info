@@ -15,6 +15,8 @@ import com.android.mtinfo.databinding.ActivityMainBinding
 import com.android.mtinfo.presentation.adapter.InterestAdapter
 import com.android.mtinfo.presentation.adapter.MovieAdapter
 import com.android.mtinfo.presentation.adapter.TvShowAdapter
+import com.android.mtinfo.presentation.viewmodel.MainActivityViewModel
+import com.android.mtinfo.presentation.viewmodel.MainActivityViewModelFactory
 import com.android.mtinfo.presentation.viewmodel.interest.InterestViewModel
 import com.android.mtinfo.presentation.viewmodel.interest.InterestViewModelFactory
 import com.android.mtinfo.presentation.viewmodel.movie.MovieViewModel
@@ -48,6 +50,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var interestAdapter: InterestAdapter
     lateinit var interestViewModel: InterestViewModel
 
+    @Inject
+    lateinit var mainFactory: MainActivityViewModelFactory
+    lateinit var mainActivityViewModel: MainActivityViewModel
+
 
     private lateinit var binding: ActivityMainBinding
 
@@ -61,6 +67,8 @@ class MainActivity : AppCompatActivity() {
         movieViewModel = ViewModelProvider(this, movieFactory).get(MovieViewModel::class.java)
         tvShowViewModel = ViewModelProvider(this, tvShowFactory).get(TvShowViewModel::class.java)
         interestViewModel = ViewModelProvider(this, interestFactory).get(InterestViewModel::class.java)
+
+        mainActivityViewModel = ViewModelProvider(this, mainFactory).get(MainActivityViewModel::class.java)
     }
 
     private fun setBottomNavigation() {
