@@ -19,12 +19,12 @@ class MovieRepositoryImpl(
             val response = movieRemoteDataSource.getMovies()
             val body = response.body()
             if(body!=null){
-                Log.i("MYTAG", "res: $response")
-                Log.i("MYTAG", "body: $body")
+                Log.i("Movie", "res: $response")
+                Log.i("Movie", "body: $body")
                 movieList = body.movies
             }
         } catch (exception: Exception) {
-            Log.i("MyTag", exception.message.toString())
+            Log.i("Movie", exception.message.toString())
         }
         return movieList
     }

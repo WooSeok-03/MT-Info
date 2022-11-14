@@ -19,11 +19,11 @@ class TvShowRepositoryImpl(
             val response = tvShowRemoteDataSource.getTvShows()
             val body = response.body()
             if(body != null) {
-                Log.i("MYTAG", "$body")
+                Log.i("TvShow", "$body")
                 tvShowList = body.tvShows
             }
         } catch (exception: Exception) {
-            Log.i("MYTAG", exception.message.toString())
+            Log.i("TvShow", exception.message.toString())
         }
 
         return tvShowList
